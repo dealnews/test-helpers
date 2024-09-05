@@ -57,6 +57,7 @@ trait Fixtures {
             $actual   = $this->sortKeysRecursive($actual);
         }
 
+        // @phan-suppress-next-line PhanUndeclaredMethod
         $this->assertSame($expected, $actual, $message);
     }
 
@@ -76,6 +77,7 @@ trait Fixtures {
         }
 
         $file = realpath(self::$fixture_directory . "/$fixture");
+        // @phan-suppress-next-line PhanUndeclaredMethod
         $this->assertTrue(!empty($file) && file_exists($file), "Fixture $fixture does not exist");
 
         return $file;

@@ -33,6 +33,7 @@ trait Guzzle {
         $responses = [];
 
         if (is_array($codes)) {
+            // @phan-suppress-next-line PhanUndeclaredMethod
             $this->assertEquals(count($codes), count($fixtures), 'When using an array of codes, the number of codes must match the number of fixtures');
         }
 

@@ -17,9 +17,9 @@ trait TmpDir {
 
         do {
             $success = false;
-            $dir = $base_dir . '/' . base64_encode(random_bytes(32));
+            $dir = $base_dir . '/' . hash('sha256', (random_bytes(32)));
             if (!file_exists($dir)) {
-                $success = mkdir($dir);
+                $success = mkdir($dir, recursive: true);
             }
         } while (!$success);
 

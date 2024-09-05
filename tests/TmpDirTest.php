@@ -15,7 +15,7 @@ class TmpDirTest extends \PHPUnit\Framework\TestCase {
 
         $dir2 = $this->tmpDir($dir);
 
-        $this->assertTrue(is_dir($dir));
+        $this->assertTrue(is_dir($dir2));
 
         rmdir($dir2);
         rmdir($dir);

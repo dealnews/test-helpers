@@ -68,7 +68,7 @@ trait Fixtures {
      *
      * @return     string  The fixture filename.
      */
-    public function getFixtureFile(string $fixture): string {
+    public static function getFixtureFile(string $fixture): string {
 
         // data providers are loaded before setUpBeforeClass is run
         // so make sure it has been called before using the variables
@@ -78,7 +78,9 @@ trait Fixtures {
 
         $file = realpath(self::$fixture_directory . "/$fixture");
         // @phan-suppress-next-line PhanUndeclaredMethod
-        $this->assertTrue(!empty($file) && file_exists($file), "Fixture $fixture does not exist");
+        if(empty($file) || !file_exists($file)){
+            throw new \RuntimeException("Fixture file '$fixture' not found.");
+        }
 
         return $file;
     }
@@ -90,8 +92,8 @@ trait Fixtures {
      *
      * @return     string  The fixture data.
      */
-    public function getFixtureData(string $fixture): string {
-        return file_get_contents($this->getFixtureFile($fixture));
+    public static function getFixtureData(string $fixture): string {
+        return file_get_contents(self::getFixtureFile($fixture));
     }
 
     /**
@@ -101,8 +103,8 @@ trait Fixtures {
      *
      * @return     array|object   The fixture data.
      */
-    public function getFixtureJson(string $fixture, bool $as_array = true) {
-        return json_decode($this->getFixtureData($fixture), $as_array);
+    public static function getFixtureJson(string $fixture, bool $as_array = true) {
+        return json_decode(self::getFixtureData($fixture), $as_array);
     }
 
     /**
@@ -112,10 +114,10 @@ trait Fixtures {
      *
      * @return     array   The fixture data.
      */
-    public function getFixtureJsonLines(string $fixture, bool $as_array = true): array {
+    public static function getFixtureJsonLines(string $fixture, bool $as_array = true): array {
         $data = [];
 
-        $fp = fopen($this->getFixtureFile($fixture), 'r');
+        $fp = fopen(self::getFixtureFile($fixture), 'r');
 
         while (!feof($fp)) {
             $line = trim(fgets($fp));

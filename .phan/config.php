@@ -74,7 +74,7 @@ return [
         'PhanUnreferencedUseNormal',
         'PhanUnreferencedProtectedMethod',
         'PhanUnreferencedProtectedProperty',
-
+        'PhanUnreferencedClass',
     ],
 
     // A list of directories that should be parsed for class and

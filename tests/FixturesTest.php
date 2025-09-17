@@ -42,7 +42,7 @@ class FixturesTest extends \PHPUnit\Framework\TestCase {
 
     public function testGetFixtureData() {
         self::$instance::setUpBeforeClass();
-        $result = self::$instance->getFixtureData('foo.json');
+        $result = self::$instance::getFixtureData('foo.json');
         $this->assertEquals(
             '{"foo":true}',
             $result
